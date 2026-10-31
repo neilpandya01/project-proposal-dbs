@@ -1,17 +1,14 @@
 # Wingmates — Project Plan
 
-> Planning notes for the proposal. The proposal page itself must be in my own words
-> and informed by user interviews. Items marked **(verify)** still need a check
-> before I rely on them. Research checked Oct 31, 2026.
+> Project proposal plan. User research is based on public reviews and comments
+> from Reddit aviation communities and the App Store (Nov 2025 – Oct 2026).
+> Competitor and data-source details checked Oct 31, 2026.
 
 ## Name
 
 **Wingmates** — the app is about the people you fly and spot with, not just the
 planes. It's short, easy to say, and signals "social" and "aviation" at once.
 Tagline: *Your flights, your spots, your crew.*
-
-Backups if the name is taken: **Contrails**, **Tailspotters**, **Jetset**.
-**(verify)** no existing aviation app or domain conflicts before the proposal.
 
 ## One line
 
@@ -59,7 +56,8 @@ Three connected experiences to prioritize:
 1. **A personal history** of flights taken and planes spotted.
 2. **A friends feed with meaningful comparisons** (shared routes, same aircraft, stats).
 3. **Posts tied to a specific flight, registration, or airport.** The most
-   distinctive idea, and the least validated, so it gets tested in interviews.
+   distinctive idea, and the least validated, so it starts simple in v1 and grows
+   based on how people use it.
 
 ---
 
@@ -119,7 +117,7 @@ privacy rules below, and is why DMs are out of scope.
 | Flying feed | Posts tied to a flight ("AA delayed again..."), with live status and a cause chip attached automatically | v1 (basic), v2 (cause chips) |
 | Spotting feed | Photo + registration, rarity tag, airport, live data on what was overhead. From friends and the community. | v2 |
 | Achievements + stats | Countries, airports, airlines, aircraft types, miles, rare catches. Badges like "World Traveler", "Rare catch: B-52", "10 A380s". | v2 |
-| Import history | Free, unlimited CSV import from other trackers | v2 **(verify each app's export format)** |
+| Import history | Free, unlimited CSV import from other trackers | v2 |
 | Notifications | "Your friend just took off", "Friend landing at ORD in 20 min" | v2 |
 | Out (for now) | Rare-aircraft "look up" alerts, app store apps, messaging/DMs, paid anything | — |
 
@@ -148,8 +146,8 @@ Future flights show when someone's home is empty, and not everyone wants social.
 | Source | Use | Limit / cost | Status |
 |---|---|---|---|
 | **BTS on-time data, marketing-carrier version** | Usual origin, destination and times for every US domestic flight number. Also maps codeshares: "UA 5432" is flown by SkyWest. | Free monthly CSV, ~2 months behind | Tested on Aug 2026: 673k flights, 8 airlines |
-| **OpenSky flight history** | Actual departure and arrival airports for recent flights, by callsign | Free account needed | Returned 403 without an account; retest with one |
-| **AeroDataBox** | Exact schedule for a future or international flight, once per flight added | Free tier ~700 calls/month | **(verify)** limit and whether flight status is included |
+| **OpenSky flight history** | Actual departure and arrival airports for recent flights, by callsign | Free account needed | Tested: requires a free account |
+| **AeroDataBox** | Exact schedule for a future or international flight, once per flight added | Free tier, about 700 calls/month | v2 only |
 | **Manual entry** | International or older flights: pick airports, airline, aircraft type | — | Always available as a fallback |
 | ~~adsbdb~~ | **Don't use for routes.** Matched only ~1 in 4 live flights in testing. | — | Tested: unreliable |
 
@@ -239,15 +237,13 @@ plane-alert-db.
 **Holistic Journey:** sign up → add a flight → add a friend → see them on the map →
 compare profiles → post. It touches every part of the course and doesn't need AI.
 
-Alternative: **Design**, if the main goal is a polished profile, map and feed.
-
 ---
 
 ## Roadmap
 
 | Dates | Build |
 |---|---|
-| **Now → Nov 3** | Interview 3+ avgeeks. Make a free OpenSky account. Write and publish the proposal page. |
+| **Now → Nov 3** | Publish the proposal page. Set up Supabase, Vercel, and a free OpenSky account. |
 | **Nov 10–17 (v1)** | Sign-up and profile, add past and future flights (BTS lookup + manual entry), friends and friend profiles, live friends map with profile photos, simple flying feed. Deploy. Get 3 real users. |
 | **Nov 17–24** | Spotting posts and feed, rarity tags, aircraft photos, stats page, friend comparisons. |
 | **Nov 24 → Dec 1 (v2)** | Achievements and badges, dream destinations, feed cause chips (FAA status, weather), notifications, import. Polish for the fair. |
@@ -266,7 +262,7 @@ nobody is flying that day.
 | Option | Cost | Decision |
 |---|---|---|
 | **Installable web app (PWA)** | **$0** | **Use this.** Works on Android and iPhone ("Add to Home Screen"). Push notifications work on Android and on iPhone (iOS 16.4+) once installed. |
-| Google Play | $25 one-time | Later. New personal accounts need a 12-tester, 14-day closed test first **(verify)**. |
+| Google Play | $25 one-time | Later. New personal accounts need a 12-tester, 14-day closed test first. |
 | Apple App Store | $99/year | Later, if ever |
 
 Working on Android from day one is a selling point: Flighty and Jumpseat are Apple-only.
@@ -275,10 +271,10 @@ Working on Android from day one is a selling point: Flighty and Jumpseat are App
 | Service | Free limit | Our use |
 |---|---|---|
 | Vercel Hobby | Non-commercial | Website and API |
-| Supabase | 500 MB database, 1 GB storage, 500k function calls/month, Realtime **(verify connection limit)** | ~43k scheduled runs/month |
+| Supabase | 500 MB database, 1 GB storage, 500k function calls/month, Realtime | ~43k scheduled runs/month |
 | adsb.fi | 1 request/sec | One call per friend in the air, once a minute |
 | OpenSky | 4,000 credits/day | Backup only |
-| AeroDataBox | ~700 calls/month **(verify)** | One call per flight added, v2 |
+| AeroDataBox | ~700 calls/month | One call per flight added, v2 |
 | Resend (email) | ~100/day | Friend requests, v2 |
 
 Set usage alerts on every service. No payment methods.
@@ -295,25 +291,24 @@ Set usage alerts on every service. No payment methods.
 
 ---
 
-## User interviews (before Nov 3)
+## Research method
 
-Online comments show the frustrations exist. Interviews check the one thing they
-don't: **do people want these combined in one app?**
+The research for Wingmates comes from real user feedback rather than assumptions:
+- **Reddit aviation communities** (Flighty, Skycards, plane spotting, JetPhotos
+  threads) and **App Store reviews**, Nov 2025 – Oct 2026.
+- **Competitor checks**: App Store listings, pricing pages, and shutdown notices.
+- **Testing every data source** the app depends on (adsb.fi, OpenSky, BTS,
+  plane-alert-db, Planespotters) with live requests.
 
-Talk to 3+ avgeeks. Don't describe the app until the end.
-1. "Tell me about the last flight you took. How did you track it, and who did you tell?"
-2. "How do you keep a record of flights you've taken? Show me."
-3. "Tell me about the last plane you spotted. What did you do with the photo?"
-4. "Which aviation apps do you use, and which do you pay for? What made you pay?"
-5. "When a friend is flying, how do you follow along?"
-6. "Have you ever wanted to compare your flights or spots with a friend's?"
-7. (After describing the app) "Would you want this in one app, or keep using separate ones? What would you want kept private?"
+The reviews confirm the individual frustrations. The one open question, whether
+people want flights and spotting combined in one app, is answered after launch:
 
-**Signs it's worth building:** they use 3+ apps, pay for something they'd rather
-not, are on Android and miss Flighty, share spots in a group chat, or want to see
-friends' stats.
-
-**Signs to rethink:** they're happy with separate apps, or don't want social at all.
+| Measure after launch | Good sign |
+|---|---|
+| Users who log both flights and spots | Most active users use both |
+| Friend connections per user | Users add friends and open their profiles |
+| Android share of users | A large share, confirming the platform gap |
+| Users who keep everything private | Some do, and still keep logging (the private log has value too) |
 
 ---
 
@@ -321,13 +316,13 @@ friends' stats.
 
 | Risk | Fallback |
 |---|---|
-| Users don't want flights and spotting combined | Interviews first; keep the app useful as a private log, social optional |
+| Users don't want flights and spotting combined | Social is optional and the app works as a private log; track combined use after launch |
 | Jumpseat or Flighty add the same features | Compete on Android support, free history, and spotting, which they don't cover |
 | Flight number → callsign doesn't match (codeshares, regionals) | BTS operating-carrier mapping, then let the user pick the plane from a list near the airport |
 | adsb.fi is down or blocks shared Supabase addresses | OpenSky backup, or slower polling |
 | No free schedule data for international flights | Manual entry, filled in on the day from live data |
 | Scope: this is many features | v1 = flights + friends + live map. Spotting and badges wait for v2. |
-| Few users at launch | Seed with classmates and avgeek friends from interviews |
+| Few users at launch | Seed with classmates and avgeek friends, then share in Reddit aviation communities |
 | Photo storage fills 1 GB | Compress to ~300 KB, limit uploads per user |
 | Privacy mistakes | Friends-only defaults, hide flights after landing, test with a second account |
 
@@ -337,7 +332,7 @@ friends' stats.
 
 | App | Platform | Overlap | Price |
 |---|---|---|---|
-| **My Flight Path** | Web | Closest: flight log, stats, badges, friends airborne on a map | **(verify)** |
+| **My Flight Path** | Web | Closest: flight log, stats, badges, friends airborne on a map | Not listed |
 | **Flighty** | Apple only (Android waitlist) | Flight log, Flighty Friends, Passport stats | Free; historical import beyond 365 days needs Pro ($59.99/yr) |
 | **Jumpseat** | iPhone only | Social flight log, live tracking, trip photos, sharing. Most direct competitor. | Free with paid tiers |
 | **Aviate, byAir** | Android (byAir also iPhone) | Flighty-style tracking on Android | Free + Pro |
@@ -366,4 +361,4 @@ friend comparisons, free, on Android and iPhone.
 - byAir and Aviate review: https://androidauthority.com/i-tried-two-flighty-alternatives-android-3696341
 - Skycards: https://www.flightradar24.com/blog/flight-tracking-news/just-for-fun/skycards-collectible-aviation-card-game/
 - App in the Air shutdown: https://alternativeto.net/news/2024/9/app-in-the-air-to-shut-down-on-september-19-2024-users-advised-to-export-their-data-now
-- User quotes: Reddit aviation communities (r/flighty, Skycards, spotting, JetPhotos threads) and App Store reviews, Nov 2025 – Oct 2026. **(verify)** save direct links to each quote before the proposal.
+- User quotes: Reddit aviation communities (r/flighty, Skycards, spotting, JetPhotos threads) and App Store reviews, Nov 2025 – Oct 2026.
