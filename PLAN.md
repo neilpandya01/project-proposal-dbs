@@ -26,6 +26,12 @@ general social media to share and keep up.
 and the news around them, on both Android and iPhone. Wingmates competes on
 **integration**, not on features that are missing everywhere else.
 
+**Why user-reported news:** today, hard-to-find aviation news (a rare visitor, a
+diversion, a new route, an airport change) usually reaches people through a few
+influencers who dig it up and post it. But avgeeks at airports and on planes see
+these things first. Wingmates lets everyone report what they see, so news comes
+from the whole community instead of a handful of accounts.
+
 ---
 
 ## What users say
