@@ -2,7 +2,8 @@
 
 *Your flights, your spots, your crew.*
 
-A free social app for avgeeks, built by an avgeek: log the flights you take and
+Avgeeks juggle separate apps for flight logs, tracking, spotting, and news.
+Wingmates is a free social app for avgeeks, built by an avgeek: log the flights you take and
 the planes you spot, follow friends, and see them live on the map while they fly.
 See user-reported and current aviation news. All in one place, on any phone.
 
@@ -83,7 +84,14 @@ friends while in the air, and any flight or post can be hidden.
 ## How it works
 
 **Stack:** Next.js on Vercel, Supabase (database, storage, realtime, scheduled jobs).
-Installable web app, so it works on Android and iPhone for $0.
+Installable web app, so it works on Android and iPhone for $0. Supabase Realtime
+moves planes on friends' maps live, and its scheduled jobs handle tracking and news.
+
+**CLIs and MCP servers:**
+- **Supabase CLI + MCP** — database changes, scheduled jobs, checking stored flights
+- **Vercel CLI** — deploys and logs
+- **GitHub CLI** — repo and pull requests
+- **Playwright MCP** — test the map, feed, and profile in a real browser
 
 - **Live map:** every minute, a job checks flights that should be in the air, looks
   them up on adsb.fi, and pushes positions to friends' maps.
@@ -105,7 +113,8 @@ Installable web app, so it works on Android and iPhone for $0.
 **Build first:** flight number → live position on the map. It's the riskiest part.
 
 **Focus:** Holistic Journey — sign up → add a flight → add a friend → see them on
-the map → read and post news.
+the map → read and post news. I chose it because the app only works if every step
+of that path works on the live site, and it doesn't need AI.
 
 ---
 

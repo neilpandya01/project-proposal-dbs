@@ -184,7 +184,7 @@
     <div class="eyebrow">Project proposal</div>
     <h1>Wingmates</h1>
     <p class="tagline">Your flights, your spots, your crew.</p>
-    <p class="pitch">A free social app for avgeeks, built by an avgeek: log the flights you take and the planes you spot, follow friends, and see them live on the map while they fly. See user-reported and current aviation news. All in one place, on any phone.</p>
+    <p class="pitch">Avgeeks juggle separate apps for flight logs, tracking, spotting, and news. Wingmates is a free social app for avgeeks, built by an avgeek: log the flights you take and the planes you spot, follow friends, and see them live on the map while they fly. See user-reported and current aviation news. All in one place, on any phone.</p>
     <div class="chips">
       <span class="chip">Flight log</span>
       <span class="chip">Live friends map</span>
@@ -269,7 +269,8 @@
 <section id="how">
   <div class="wrap">
     <h2>How it works</h2>
-    <p class="lead">Next.js on Vercel and Supabase (database, storage, realtime, scheduled jobs). It's an installable web app, so it works on Android and iPhone for $0.</p>
+    <p class="lead">Next.js on Vercel and Supabase (database, storage, realtime, scheduled jobs). It's an installable web app, so it works on Android and iPhone for $0. Supabase Realtime moves planes on friends' maps live, and its scheduled jobs handle tracking and news.</p>
+    <p style="margin:-16px 0 32px;color:var(--muted)"><strong style="color:var(--text)">CLIs and MCP servers:</strong> Supabase CLI + MCP (database changes, scheduled jobs, checking stored flights), Vercel CLI (deploys and logs), GitHub CLI (repo and pull requests), Playwright MCP (test the map, feed, and profile in a real browser).</p>
     <div class="steps">
       <div class="card"><h3>Live map</h3><p>Every minute, a job checks flights that should be in the air, looks them up on adsb.fi, and pushes positions to friends' maps.</p></div>
       <div class="card"><h3>News</h3><p>Every 15 minutes, a job pulls RSS feeds and FAA alerts into one feed next to user reports. Filter by your airports and airlines.</p></div>
@@ -309,6 +310,7 @@
     <div class="journey">
       <span>Sign up</span><i>→</i><span>Add a flight</span><i>→</i><span>Add a friend</span><i>→</i><span>See them on the map</span><i>→</i><span>Read and post news</span>
     </div>
+    <p style="color:var(--muted);margin:12px 0 0">I chose it because the app only works if every step of that path works on the live site, and it doesn't need AI.</p>
 
     <h3 style="margin-top:40px">Risks</h3>
     <div class="table-wrap" style="margin-top:12px">
