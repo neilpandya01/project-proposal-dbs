@@ -144,5 +144,4 @@ news together, on Android and iPhone.
 - plane-alert-db: https://github.com/sdr-enthusiasts/plane-alert-db
 - Flighty: https://apps.apple.com/us/app/1358823008
 - Jumpseat: https://apps.apple.com/us/app/jumpseat-social-flight-log/id6757955101
-- App in the Air shutdown: https://alternativeto.net/news/2024/9/app-in-the-air-to-shut-down-on-september-19-2024-users-advised-to-export-their-data-now
 - User quotes: Reddit aviation communities and App Store reviews, Nov 2025 – Oct 2026
