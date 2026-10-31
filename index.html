@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wingmates — Project Proposal</title>
+<meta name="description" content="Wingmates: a free social app for avgeeks. Log flights, spot planes, follow friends live, and share aviation news.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f8fb;
+    --surface: #ffffff;
+    --surface-2: #eef2f7;
+    --text: #0f1b2d;
+    --muted: #5a6b82;
+    --border: #dde4ee;
+    --accent: #1d5fd1;
+    --accent-soft: #e3ecfb;
+    --sky-1: #0b2a5b;
+    --sky-2: #1d5fd1;
+    --good: #0f7b4f;
+    --good-soft: #def3e9;
+    --warn: #9a5b00;
+    --warn-soft: #fbefd9;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1220;
+      --surface: #121b2c;
+      --surface-2: #18233a;
+      --text: #e6edf7;
+      --muted: #93a3bb;
+      --border: #24324b;
+      --accent: #6ea2ff;
+      --accent-soft: #1a2c4f;
+      --sky-1: #061631;
+      --sky-2: #163f8a;
+      --good: #5fd3a0;
+      --good-soft: #13352a;
+      --warn: #f2b25c;
+      --warn-soft: #3a2a12;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; gap: 24px; height: 56px; }
+  nav .brand { font-weight: 800; text-decoration: none; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  nav .links { display: flex; gap: 18px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  nav .links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; white-space: nowrap; }
+  nav .links a:hover { color: var(--text); }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(160deg, var(--sky-1), var(--sky-2));
+    color: #fff;
+    padding: 72px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero svg.route { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .35; pointer-events: none; }
+  .hero .wrap { position: relative; }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+  .hero h1 { font-size: clamp(44px, 9vw, 80px); line-height: 1; margin: 12px 0 8px; letter-spacing: -.03em; }
+  .hero .tagline { font-size: clamp(18px, 3vw, 24px); font-weight: 600; opacity: .9; margin: 0 0 24px; }
+  .hero .pitch { font-size: 18px; max-width: 640px; opacity: .92; margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .chip { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; }
+
+  /* Sections */
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: 0; }
+  h2 { font-size: clamp(26px, 4vw, 34px); letter-spacing: -.02em; margin: 0 0 8px; }
+  .lead { color: var(--muted); font-size: 18px; max-width: 720px; margin: 0 0 32px; }
+  h3 { font-size: 18px; margin: 0 0 6px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  /* Tables */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 560px; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface-2); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child { font-weight: 600; }
+
+  .callout {
+    margin-top: 24px; padding: 20px 22px; border-radius: var(--radius);
+    background: var(--accent-soft); border-left: 4px solid var(--accent);
+  }
+  .callout p { margin: 0; }
+  .callout p + p { margin-top: 10px; }
+
+  /* Quotes */
+  blockquote { margin: 0; }
+  .quote p { font-size: 17px; font-weight: 500; margin: 0 0 12px; }
+  .quote p::before { content: "\201C"; color: var(--accent); font-size: 28px; line-height: 0; vertical-align: -10px; margin-right: 2px; }
+  .quote cite { color: var(--muted); font-style: normal; font-size: 14px; }
+
+  /* Features */
+  .feature { display: flex; flex-direction: column; gap: 6px; }
+  .feature .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .feature p { margin: 0; color: var(--muted); font-size: 15px; }
+  .badge { font-family: "JetBrains Mono", monospace; font-size: 12px; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+  .v1 { background: var(--good-soft); color: var(--good); }
+  .v2 { background: var(--warn-soft); color: var(--warn); }
+  .feature.hl { border-color: var(--accent); }
+
+  /* Steps */
+  .steps { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); counter-reset: s; }
+  .steps .card::before { counter-increment: s; content: counter(s); display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; margin-bottom: 10px; }
+  .steps p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* Timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--border); }
+  .timeline li { position: relative; padding: 0 0 28px 24px; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+  .timeline .when { font-family: "JetBrains Mono", monospace; font-size: 13px; color: var(--accent); font-weight: 500; }
+  .timeline p { margin: 2px 0 0; }
+
+  .journey { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+  .journey span { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; }
+  .journey i { color: var(--muted); font-style: normal; }
+
+  .sources { columns: 2 280px; padding-left: 18px; font-size: 14px; color: var(--muted); }
+  .sources li { margin-bottom: 6px; break-inside: avoid; }
+
+  footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; text-align: center; }
+
+  @media (max-width: 640px) {
+    nav .links { display: none; }
+    section { padding: 48px 0; }
+    .hero { padding: 56px 0 64px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">✈ Wingmates</a>
+    <div class="links">
+      <a href="#problem">Problem</a>
+      <a href="#users">Users</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#competitors">Competitors</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="route" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M -20 340 Q 500 -60 1020 260" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="6 10"/>
+    <path d="M -20 120 Q 400 420 1020 80" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="4 12"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow">Project proposal</div>
+    <h1>Wingmates</h1>
+    <p class="tagline">Your flights, your spots, your crew.</p>
+    <p class="pitch">A free social app for avgeeks, built by an avgeek: log the flights you take and the planes you spot, follow friends, and see them live on the map while they fly. See user-reported and current aviation news. All in one place, on any phone.</p>
+    <div class="chips">
+      <span class="chip">Flight log</span>
+      <span class="chip">Live friends map</span>
+      <span class="chip">Spotting</span>
+      <span class="chip">Aviation news</span>
+      <span class="chip">Android + iPhone</span>
+      <span class="chip">Free</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="problem">
+  <div class="wrap">
+    <h2>The problem</h2>
+    <p class="lead">Aviation apps are each good at one piece of the hobby. Avgeeks end up using one app to log flights, another to track them, another to spot planes, plus news sites and general social media to share and keep up.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Need</th><th>Today</th><th>What's missing</th></tr></thead>
+        <tbody>
+          <tr><td>Flight log and stats</td><td>Flighty, Jumpseat, myFlightradar24</td><td>Flighty is Apple-only; importing flights older than a year needs Pro ($59.99/yr). Jumpseat is iPhone-only.</td></tr>
+          <tr><td>Friends' flights and stats</td><td>Flighty Friends, Jumpseat</td><td>Can't open a friend's profile to see their map, stats, or shared routes.</td></tr>
+          <tr><td>Spotting log</td><td>Skycards, Aviatter, spreadsheets</td><td>Kept separate from your flights and from live data. Friends features feel shallow.</td></tr>
+          <tr><td>Aviation news</td><td>News sites, Reddit, X</td><td>Scattered, and not tied to the airports, airlines, or flights you care about.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <p><strong>The gap:</strong> no free app connects flights you take, planes you spot, your friends, and the news around them, on both Android and iPhone. Wingmates competes on <strong>integration</strong>, not on features that are missing everywhere else.</p>
+    </div>
+  </div>
+</section>
+
+<section id="users">
+  <div class="wrap">
+    <h2>What users say</h2>
+    <p class="lead">From Reddit aviation communities and App Store reviews, Nov 2025 – Oct 2026.</p>
+    <div class="grid g2">
+      <blockquote class="card quote"><p>No android version is why I haven't paid for lifetime.</p><cite>Flighty user · Apr 2026</cite></blockquote>
+      <blockquote class="card quote"><p>Now why can't I see my friends' maps? The same planes we've been on? Our common routes?</p><cite>Flighty user · May 2026</cite></blockquote>
+      <blockquote class="card quote"><p>I really really really wish we could click on their profiles and see their flight maps and flight stats</p><cite>Flighty user · Jun 2026</cite></blockquote>
+      <blockquote class="card quote"><p>I still don't know what the value is in having friends in this game</p><cite>Skycards user · May 2026</cite></blockquote>
+      <blockquote class="card quote"><p>The only thing I'd love to see is some sort of integration with the likes of FR24</p><cite>Plane spotter · Apr 2026</cite></blockquote>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card">
+        <h3>Strongest needs</h3>
+        <p style="margin:0;color:var(--muted)">Richer friend profiles and stats, Android support, spotting tied to live data, and easier flight history.</p>
+      </div>
+      <div class="card">
+        <h3>Counterpoint</h3>
+        <p style="margin:0;color:var(--muted)">Some users prefer minimal social features, and parents worry about kids and chat. So social is optional, private by default, and there are no DMs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <h2>Features</h2>
+    <p class="lead">v1 ships in the first week. v2 follows before the fair.</p>
+    <div class="grid g3">
+      <div class="card feature"><div class="top"><h3>Profile</h3><span class="badge v1">v1</span></div><p>Photo, home airport, flight map, stats.</p></div>
+      <div class="card feature"><div class="top"><h3>Flights</h3><span class="badge v1">v1</span></div><p>Add past and future flights by flight number and date, or by hand.</p></div>
+      <div class="card feature"><div class="top"><h3>Friends</h3><span class="badge v1">v1</span></div><p>Mutual follows. Open a friend's flight map; stats come in week 2.</p></div>
+      <div class="card feature hl"><div class="top"><h3>Live friends map</h3><span class="badge v1">v1</span></div><p>Friends in the air, with their photo on their plane.</p></div>
+      <div class="card feature hl"><div class="top"><h3>News feed</h3><span class="badge v1">v1</span></div><p>Aviation headlines from news sites, plus live alerts like ground stops and delays.</p></div>
+      <div class="card feature hl"><div class="top"><h3>User reports</h3><span class="badge v1">v1 → v2</span></div><p>Post what you see: diversions, delays, rare visitors, airport news. Tagged by airport or flight. Upvotes and trending in v2.</p></div>
+      <div class="card feature"><div class="top"><h3>Spotting</h3><span class="badge v2">v2</span></div><p>Photo + registration, rarity tag, and "what's near me now?"</p></div>
+      <div class="card feature"><div class="top"><h3>Friend comparisons</h3><span class="badge v2">v2</span></div><p>Shared routes, airports, and planes you've both been on.</p></div>
+      <div class="card feature"><div class="top"><h3>Achievements</h3><span class="badge v2">v2</span></div><p>Countries, airports, aircraft types, miles, rare catches.</p></div>
+      <div class="card feature"><div class="top"><h3>Notifications</h3><span class="badge v2">v2</span></div><p>"Your friend just took off," plus alerts for your home airport.</p></div>
+    </div>
+    <div class="callout">
+      <p><strong>Privacy:</strong> flights are friends-only by default, live position only shows to friends while in the air, and any flight or post can be hidden.</p>
+      <p><strong>Out of scope:</strong> DMs, app store apps, paid features.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="lead">Next.js on Vercel and Supabase (database, storage, realtime, scheduled jobs). It's an installable web app, so it works on Android and iPhone for $0.</p>
+    <div class="steps">
+      <div class="card"><h3>Live map</h3><p>Every minute, a job checks flights that should be in the air, looks them up on adsb.fi, and pushes positions to friends' maps.</p></div>
+      <div class="card"><h3>News</h3><p>Every 15 minutes, a job pulls RSS feeds and FAA alerts into one feed next to user reports. Filter by your airports and airlines.</p></div>
+      <div class="card"><h3>Adding a flight</h3><p>"UA 1234, Nov 20" → route from BTS data → user confirms → saved.</p></div>
+    </div>
+
+    <h3 style="margin-top:40px">Data sources (all free)</h3>
+    <div class="table-wrap" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Need</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Live positions</td><td>adsb.fi (1 request/sec, tested), OpenSky as backup</td></tr>
+          <tr><td>Flight number → route</td><td>BTS on-time data for US flights (tested), manual entry for the rest</td></tr>
+          <tr><td>Flight number → callsign</td><td>OpenFlights airline codes</td></tr>
+          <tr><td>News headlines</td><td>RSS feeds from aviation news sites, showing headline, source, and link</td></tr>
+          <tr><td>Live alerts</td><td>FAA NAS Status (ground stops, delays), aviationweather.gov</td></tr>
+          <tr><td>Spotting</td><td>adsb.fi nearby search, plane-alert-db for rarity, Planespotters photos</td></tr>
+          <tr><td>Airports and maps</td><td>OurAirports, OpenFreeMap + MapLibre</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <h2>Roadmap</h2>
+    <p class="lead"><strong>Build first:</strong> flight number → live position on the map. It's the riskiest part.</p>
+    <ol class="timeline">
+      <li><div class="when">Now → Nov 3</div><p>Publish proposal. Set up Supabase and Vercel.</p></li>
+      <li><div class="when">Nov 10–17 · v1</div><p>Profiles, flights, friends, live map, news feed, basic user reports.</p></li>
+      <li><div class="when">Nov 17–24</div><p>Spotting, stats on friend profiles.</p></li>
+      <li><div class="when">Nov 24 → Dec 1 · v2</div><p>Comparisons, achievements, notifications, trending reports. Polish for the fair.</p></li>
+    </ol>
+
+    <h3 style="margin-top:40px">Focus: Holistic Journey</h3>
+    <div class="journey">
+      <span>Sign up</span><i>→</i><span>Add a flight</span><i>→</i><span>Add a friend</span><i>→</i><span>See them on the map</span><i>→</i><span>Read and post news</span>
+    </div>
+
+    <h3 style="margin-top:40px">Risks</h3>
+    <div class="table-wrap" style="margin-top:12px">
+      <table>
+        <thead><tr><th>Risk</th><th>Plan</th></tr></thead>
+        <tbody>
+          <tr><td>Too many features</td><td>v1 is flights, friends, live map, and news. The rest waits.</td></tr>
+          <tr><td>Flight number doesn't match the plane (codeshares)</td><td>BTS carrier mapping, or pick the plane from a nearby list</td></tr>
+          <tr><td>False or spammy user reports</td><td>Tie reports to an airport or flight, let users flag them, show the source</td></tr>
+          <tr><td>Privacy mistakes</td><td>Friends-only defaults, test with a second account</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="competitors">
+  <div class="wrap">
+    <h2>Competitors</h2>
+    <p class="lead">Each covers one piece. None covers all four together.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>App</th><th>Platform</th><th>Overlap</th></tr></thead>
+        <tbody>
+          <tr><td>Flighty</td><td>Apple only</td><td>Flight log, friends, stats</td></tr>
+          <tr><td>Jumpseat</td><td>iPhone only</td><td>Social flight log, photos. Closest competitor.</td></tr>
+          <tr><td>Skycards</td><td>iPhone, Android</td><td>Spotting card game with friends</td></tr>
+          <tr><td>Aviatter</td><td>iPhone</td><td>Spotting log with a social feed</td></tr>
+          <tr><td>myFlightradar24</td><td>Web</td><td>Flight log and stats</td></tr>
+          <tr><td>Simple Flying, AeroTime</td><td>Web</td><td>Aviation news only</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <p><strong>Where Wingmates fits:</strong> the only free app with flights, spotting, friends, and news together, on Android and iPhone.</p>
+    </div>
+
+    <h3 style="margin-top:40px">Sources</h3>
+    <ul class="sources">
+      <li><a href="https://github.com/adsbfi/opendata">adsb.fi open data</a></li>
+      <li><a href="https://openskynetwork.github.io/opensky-api/rest.html">OpenSky REST API</a></li>
+      <li><a href="https://transtats.bts.gov/PREZIP/">BTS on-time data</a></li>
+      <li><a href="https://nasstatus.faa.gov/">FAA NAS Status</a></li>
+      <li><a href="https://github.com/sdr-enthusiasts/plane-alert-db">plane-alert-db</a></li>
+      <li><a href="https://apps.apple.com/us/app/1358823008">Flighty (App Store)</a></li>
+      <li><a href="https://apps.apple.com/us/app/jumpseat-social-flight-log/id6757955101">Jumpseat (App Store)</a></li>
+      <li><a href="https://alternativeto.net/news/2024/9/app-in-the-air-to-shut-down-on-september-19-2024-users-advised-to-export-their-data-now">App in the Air shutdown</a></li>
+      <li>User quotes: Reddit aviation communities and App Store reviews, Nov 2025 – Oct 2026</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Wingmates · Project proposal by Neil Pandya · 2026</div>
+</footer>
+
+</body>
+</html>

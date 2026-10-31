@@ -51,7 +51,7 @@ about kids and chat. So social is optional, private by default, and there are no
 |---|---|---|
 | Profile | Photo, home airport, flight map, stats | v1 |
 | Flights | Add past and future flights by flight number + date, or by hand | v1 |
-| Friends | Mutual follows; open a friend's map and stats | v1 |
+| Friends | Mutual follows; open a friend's flight map | v1 (stats in week 2) |
 | **Live friends map** | Friends in the air, with their photo on their plane | v1 |
 | **News feed** | Aviation headlines from news sites, plus live alerts like ground stops and delays | v1 |
 | **User reports** | Users post what they see: diversions, delays, rare visitors, airport news. Tagged by airport or flight. | v1 (basic), v2 (upvotes, trending) |
@@ -99,7 +99,7 @@ Installable web app, so it works on Android and iPhone for $0.
 |---|---|
 | **Now → Nov 3** | Publish proposal. Set up Supabase and Vercel. |
 | **Nov 10–17 (v1)** | Profiles, flights, friends, live map, news feed, basic user reports. |
-| **Nov 17–24** | Spotting, friend profiles with stats. |
+| **Nov 17–24** | Spotting, stats on friend profiles. |
 | **Nov 24 → Dec 1 (v2)** | Comparisons, achievements, notifications, trending reports. Polish for the fair. |
 
 **Build first:** flight number → live position on the map. It's the riskiest part.
