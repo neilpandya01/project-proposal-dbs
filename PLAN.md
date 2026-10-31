@@ -20,17 +20,10 @@ general social media to share and keep up.
 | Friends' flights and stats | Flighty Friends, Jumpseat | Can't open a friend's profile to see their map, stats, or shared routes. |
 | Spotting log | Skycards, Aviatter, spreadsheets | Kept separate from your flights and from live data. Friends features feel shallow. |
 | Aviation news | News sites, Reddit, X | Scattered, and not tied to the airports, airlines, or flights you care about. |
-| Replacement for App in the Air | — | Shut down Oct 2024. Some users still miss it. |
 
 **The gap:** no free app connects flights you take, planes you spot, your friends,
 and the news around them, on both Android and iPhone. Wingmates competes on
 **integration**, not on features that are missing everywhere else.
-
-**Why user-reported news:** today, hard-to-find aviation news (a rare visitor, a
-diversion, a new route, an airport change) usually reaches people through a few
-influencers who dig it up and post it. But avgeeks at airports and on planes see
-these things first. Wingmates lets everyone report what they see, so news comes
-from the whole community instead of a handful of accounts.
 
 ---
 
@@ -105,7 +98,7 @@ Installable web app, so it works on Android and iPhone for $0.
 | Dates | Build |
 |---|---|
 | **Now → Nov 3** | Publish proposal. Set up Supabase and Vercel. |
-| **Nov 10–17 (v1)** | Profiles, flights, friends, live map, news feed, basic user reports. Deploy, get 3 real users. |
+| **Nov 10–17 (v1)** | Profiles, flights, friends, live map, news feed, basic user reports. |
 | **Nov 17–24** | Spotting, friend profiles with stats. |
 | **Nov 24 → Dec 1 (v2)** | Comparisons, achievements, notifications, trending reports. Polish for the fair. |
 
@@ -123,8 +116,6 @@ the map → read and post news.
 | Too many features | v1 is flights, friends, live map, and news. The rest waits. |
 | Flight number doesn't match the plane (codeshares) | BTS carrier mapping, or pick the plane from a nearby list |
 | False or spammy user reports | Tie reports to an airport or flight, let users flag them, show the source |
-| Few users at launch | Seed with classmates and Reddit avgeek communities |
-| Privacy mistakes | Friends-only defaults, test with a second account |
 
 ---
 
